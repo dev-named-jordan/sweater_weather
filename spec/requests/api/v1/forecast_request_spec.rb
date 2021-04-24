@@ -101,7 +101,6 @@ RSpec.describe 'Forecast API request', type: :request do
     expect(forecast[:data][:attributes][:daily_weather][0][:conditions]).to be_a(String)
     expect(forecast[:data][:attributes][:daily_weather][0][:icon]).to be_a(String)
   end
-
   describe 'sad path for forecast request' do
     it 'Sad Path empty', :vcr do
 
