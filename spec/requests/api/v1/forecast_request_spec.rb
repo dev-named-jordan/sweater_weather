@@ -6,7 +6,6 @@ RSpec.describe 'Forecast API request', type: :request do
     get "/api/v1/forecast?location=denver,co"
 
     forecast = JSON.parse(response.body, symbolize_names:true)
-
     expect(response).to be_successful
     expect(response.status).to eq(200)
     expect(forecast[:data]).to be_a(Hash)
@@ -22,6 +21,31 @@ RSpec.describe 'Forecast API request', type: :request do
     expect(forecast[:data][:attributes]).to have_key(:daily_weather)
     expect(forecast[:data][:attributes][:current_weather]).to be_a(Hash)
     expect(forecast[:data][:attributes][:current_weather]).to have_key(:datetime)
+    expect(forecast[:data][:attributes][:current_weather]).to_not have_key(:dew_point)
+    expect(forecast[:data][:attributes][:current_weather]).to_not have_key(:clouds)
+    expect(forecast[:data][:attributes][:current_weather]).to_not have_key(:wind_speed)
+    expect(forecast[:data][:attributes][:current_weather]).to_not have_key(:wind_deg)
+    expect(forecast[:data][:attributes][:current_weather]).to_not have_key(:wind_gust)
+    expect(forecast[:data][:attributes][:current_weather]).to_not have_key(:weather)
+    expect(forecast[:data][:attributes][:hourly_weather][0]).to_not have_key(:feels_like)
+    expect(forecast[:data][:attributes][:hourly_weather][0]).to_not have_key(:pressure)
+    expect(forecast[:data][:attributes][:hourly_weather][0]).to_not have_key(:dew_point)
+    expect(forecast[:data][:attributes][:hourly_weather][0]).to_not have_key(:clouds)
+    expect(forecast[:data][:attributes][:hourly_weather][0]).to_not have_key(:wind_speed)
+    expect(forecast[:data][:attributes][:hourly_weather][0]).to_not have_key(:wind_deg)
+    expect(forecast[:data][:attributes][:hourly_weather][0]).to_not have_key(:wind_gust)
+    expect(forecast[:data][:attributes][:hourly_weather][0]).to_not have_key(:weather)
+    expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:feels_like)
+    expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:pressure)
+    expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:dew_point)
+    expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:clouds)
+    expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:wind_speed)
+    expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:wind_deg)
+    expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:wind_gust)
+    expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:weather)
+    expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:moonrise)
+    expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:moonset)
+    expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:moon_phase)
     expect(forecast[:data][:attributes][:current_weather][:datetime]).to be_a(String)
     expect(forecast[:data][:attributes][:hourly_weather]).to be_an(Array)
     expect(forecast[:data][:attributes][:hourly_weather].count).to eq(8)
@@ -79,12 +103,21 @@ RSpec.describe 'Forecast API request', type: :request do
   end
 
   describe 'sad path for forecast request' do
-    it 'Sad Path', :vcr do
+    it 'Sad Path empty', :vcr do
 
       get "/api/v1/forecast?location="
 
       forecast = JSON.parse(response.body, symbolize_names:true)
 
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+      expect(forecast[:Message][:Error]).to eq('No City Provided')
+    end
+    it 'Sad Path numeric', :vcr do
+
+      get "/api/v1/forecast?location=21321654"
+
+      forecast = JSON.parse(response.body, symbolize_names:true)
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
       expect(forecast[:Message][:Error]).to eq('No City Provided')
