@@ -41,10 +41,10 @@ RSpec.describe 'Forecast API request', type: :request do
     expect(forecast[:data][:attributes][:current_weather]).to have_key(:icon)
     expect(forecast[:data][:attributes][:current_weather][:sunrise]).to be_a(String)
     expect(forecast[:data][:attributes][:current_weather][:sunset]).to be_a(String)
-    expect(forecast[:data][:attributes][:current_weather][:temperature]).to be_a(Float)
-    expect(forecast[:data][:attributes][:current_weather][:feels_like]).to be_a(Float)
+    expect(forecast[:data][:attributes][:current_weather][:temperature]).to be_a(Numeric)
+    expect(forecast[:data][:attributes][:current_weather][:feels_like]).to be_a(Numeric)
     expect(forecast[:data][:attributes][:current_weather][:humidity]).to be_a(Integer)
-    expect(forecast[:data][:attributes][:current_weather][:uvi]).to be_a(Float)
+    expect(forecast[:data][:attributes][:current_weather][:uvi]).to be_a(Numeric)
     expect(forecast[:data][:attributes][:current_weather][:visibility]).to be_a(Integer)
     expect(forecast[:data][:attributes][:current_weather][:conditions]).to be_a(String)
     expect(forecast[:data][:attributes][:current_weather][:icon]).to be_a(String)
@@ -55,7 +55,7 @@ RSpec.describe 'Forecast API request', type: :request do
     expect(forecast[:data][:attributes][:hourly_weather]).to have_key(:conditions)
     expect(forecast[:data][:attributes][:hourly_weather]).to have_key(:icon)
     expect(forecast[:data][:attributes][:hourly_weather][:time]).to be_a(String)
-    expect(forecast[:data][:attributes][:hourly_weather][:temp]).to be_a(Float)
+    expect(forecast[:data][:attributes][:hourly_weather][:temp]).to be_a(Numeric)
     expect(forecast[:data][:attributes][:hourly_weather][:conditions]).to be_a(String)
     expect(forecast[:data][:attributes][:hourly_weather][:icon]).to be_a(String)
 
@@ -70,9 +70,22 @@ RSpec.describe 'Forecast API request', type: :request do
     expect(forecast[:data][:attributes][:daily_weather][:date]).to be_a(String)
     expect(forecast[:data][:attributes][:daily_weather][:sunrise]).to be_a(String)
     expect(forecast[:data][:attributes][:daily_weather][:sunset]).to be_a(String)
-    expect(forecast[:data][:attributes][:daily_weather][:max_temp]).to be_a(Float)
-    expect(forecast[:data][:attributes][:daily_weather][:min_temp]).to be_a(Float)
+    expect(forecast[:data][:attributes][:daily_weather][:max_temp]).to be_a(Numeric)
+    expect(forecast[:data][:attributes][:daily_weather][:min_temp]).to be_a(Numeric)
     expect(forecast[:data][:attributes][:daily_weather][:conditions]).to be_a(String)
     expect(forecast[:data][:attributes][:daily_weather][:icon]).to be_a(String)
+  end
+
+  describe 'sad path for forecast request' do
+    it 'Sad Path', :vcr do
+
+      get "/api/v1/forecast?location="
+
+      forecast = JSON.parse(response.body, symbolize_names:true)
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+      expect(forecast[:Message][:Error]).to eq('No City Provided')
+    end
   end
 end

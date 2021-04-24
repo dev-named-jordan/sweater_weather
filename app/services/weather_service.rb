@@ -13,6 +13,7 @@ class WeatherService
       f.params['lon'] = longitude
       f.params['exclude'] = 'minutely, alerts'
       f.params['appid'] = ENV['appid']
+      f.params['units'] = 'imperial'
     end
     parse(response)
   end
