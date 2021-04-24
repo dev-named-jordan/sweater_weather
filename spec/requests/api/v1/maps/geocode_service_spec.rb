@@ -1,12 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'MapQuest API service' do
+RSpec.describe 'MapQuest API service', type: :request do
   it 'can accept name of a city for location request, give me lat/long coordinal values from name of city', :vcr do
 
     location = 'denver,co'
-
-    get "/api/v1/forecast?location=#{location}"
-
+    get "/api/v1/forecast?location=denver,co"
+    # require "pry"; binding.pry
     coordinates = JSON.parse(response.body, symbolize_names:true)
 
     expect(response.status).to be_successful
