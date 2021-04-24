@@ -1,14 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Forecast API request', type: :request do
-  it 'can accept name of a city for location request, give me lat/long coordinal values from name of city', :vcr do
-
-    response = GeocodeService.get_location('denver,co')
-
-    expect(response).to be_a(Hash)
-    expect(response[:lat]).to be_a(Float)
-    expect(response[:lng]).to be_a(Float)
-  end
   it 'Using those values it can find the current, hourly and daily weather in a given city', :vcr do
 
     get "/api/v1/forecast?location=denver,co"

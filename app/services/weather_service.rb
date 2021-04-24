@@ -14,7 +14,6 @@ class WeatherService
       f.params['exclude'] = 'minutely, alerts'
       f.params['appid'] = ENV['appid']
     end
-    # require "pry"; binding.pry
     parse(response)
   end
 end
