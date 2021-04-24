@@ -38,7 +38,7 @@ RSpec.describe 'Forecast API request', type: :request do
     expect(forecast[:data][:attributes][:hourly_weather]).to be_a(Hash)
     expect(forecast[:data][:attributes][:hourly_weather]).to have_key(:time)
     expect(forecast[:data][:attributes][:hourly_weather][:time]).to be_a(String)
-    expect(forecast[:data][:attributes][:daily_weather]).to be_a(:hash)
+    expect(forecast[:data][:attributes][:daily_weather]).to be_a(Hash)
     expect(forecast[:data][:attributes][:daily_weather]).to have_key(:date)
     expect(forecast[:data][:attributes][:daily_weather][:date]).to be_a(String)
 
