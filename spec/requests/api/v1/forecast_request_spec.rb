@@ -1,19 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Forecast API request', type: :request do
-  # it 'can accept name of a city for location request, give me lat/long coordinal values from name of city', :vcr do
-  #
-  # GeocodeService.get_location('denver,co')
-  #
-  # test for lat long point form above call
+  it 'can accept name of a city for location request, give me lat/long coordinal values from name of city', :vcr do
 
-  #   # require "pry"; binding.pry
-  #   coordinates = JSON.parse(response.body, symbolize_names:true)
-  #
-  #   expect(response.status).to be_successful
-  #   require "pry"; binding.pry
-  #   expect(coordinates).to be_a(Hash)
-  # end
+    response = GeocodeService.get_location('denver,co')
+
+    expect(response).to be_a(Hash)
+    expect(response[:lat]).to be_a(Float)
+    expect(response[:lng]).to be_a(Float)
+  end
   it 'Using those values it can find the current, hourly and daily weather in a given city', :vcr do
 
     get "/api/v1/forecast?location=denver,co"
@@ -72,12 +67,20 @@ RSpec.describe 'Forecast API request', type: :request do
     expect(forecast[:data][:attributes][:hourly_weather][:conditions]).to be_a(String)
     expect(forecast[:data][:attributes][:hourly_weather][:icon]).to be_a(String)
 
-
-#     hourly_weather, array of the next 8 hours of hourly weather data:
-# time, in a human-readable format such as “14:00:00”
-# temperature, floating point number indicating the current temperature in Fahrenheit
-# conditions, the first ‘description’ field from the weather data as given by OpenWeather
-# icon, string, as given by OpenWeather
-
+    expect(forecast[:data][:attributes][:daily_weather]).to have_key(:date)
+    expect(forecast[:data][:attributes][:daily_weather]).to have_key(:sunrise)
+    expect(forecast[:data][:attributes][:daily_weather]).to have_key(:sunset)
+    expect(forecast[:data][:attributes][:daily_weather]).to have_key(:max_temp)
+    expect(forecast[:data][:attributes][:daily_weather]).to have_key(:min_temp)
+    expect(forecast[:data][:attributes][:daily_weather]).to have_key(:conditions)
+    expect(forecast[:data][:attributes][:daily_weather]).to have_key(:icon)
+    expect(forecast[:data][:attributes][:daily_weather]).to be_a(Hash)
+    expect(forecast[:data][:attributes][:daily_weather][:date]).to be_a(String)
+    expect(forecast[:data][:attributes][:daily_weather][:sunrise]).to be_a(String)
+    expect(forecast[:data][:attributes][:daily_weather][:sunset]).to be_a(String)
+    expect(forecast[:data][:attributes][:daily_weather][:max_temp]).to be_a(Float)
+    expect(forecast[:data][:attributes][:daily_weather][:min_temp]).to be_a(Float)
+    expect(forecast[:data][:attributes][:daily_weather][:conditions]).to be_a(String)
+    expect(forecast[:data][:attributes][:daily_weather][:icon]).to be_a(String)
   end
 end
