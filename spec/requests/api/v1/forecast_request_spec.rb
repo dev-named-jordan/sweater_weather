@@ -25,7 +25,6 @@ RSpec.describe 'Forecast API request', type: :request do
     expect(forecast[:data]).to be_a(Hash)
     expect(forecast[:data]).to have_key(:id)
     expect(forecast[:data]).to have_key(:type)
-    require "pry"; binding.pry
     expect(forecast[:data]).to have_key(:attributes)
     expect(forecast[:data][:id]).to be_a(String)
     expect(forecast[:data][:type]).to be_a(String)
@@ -62,22 +61,23 @@ RSpec.describe 'Forecast API request', type: :request do
     expect(forecast[:data][:attributes][:current_weather][:visibility]).to be_a(Integer)
     expect(forecast[:data][:attributes][:current_weather][:conditions]).to be_a(String)
     expect(forecast[:data][:attributes][:current_weather][:icon]).to be_a(String)
-    # require "pry"; binding.pry
 
-    # a data attribute, under which all other attributes are present:
-# id, always set to null
-# type, always set to “forecast”
-# attributes, an object containing weather information:
-# current_weather, holds current weather data:
-# datetime, in a human-readable format such as “2020-09-30 13:27:03 -0600”
-# sunrise, in a human-readable format such as “2020-09-30 06:27:03 -0600”
-# sunset, in a human-readable format such as “2020-09-30 18:27:03 -0600”
+    expect(forecast[:data][:attributes][:hourly_weather]).to be_a(Hash)
+    expect(forecast[:data][:attributes][:hourly_weather]).to have_key(:time)
+    expect(forecast[:data][:attributes][:hourly_weather]).to have_key(:temp)
+    expect(forecast[:data][:attributes][:hourly_weather]).to have_key(:conditions)
+    expect(forecast[:data][:attributes][:hourly_weather]).to have_key(:icon)
+    expect(forecast[:data][:attributes][:hourly_weather][:time]).to be_a(String)
+    expect(forecast[:data][:attributes][:hourly_weather][:temp]).to be_a(Float)
+    expect(forecast[:data][:attributes][:hourly_weather][:conditions]).to be_a(String)
+    expect(forecast[:data][:attributes][:hourly_weather][:icon]).to be_a(String)
+
+
+#     hourly_weather, array of the next 8 hours of hourly weather data:
+# time, in a human-readable format such as “14:00:00”
 # temperature, floating point number indicating the current temperature in Fahrenheit
-# feels_like, floating point number indicating a temperature in Fahrenheit
-# humidity, numeric (int or float), as given by OpenWeather
-# uvi, numeric (int or float), as given by OpenWeather
-# visibility, numeric (int or float), as given by OpenWeather
 # conditions, the first ‘description’ field from the weather data as given by OpenWeather
 # icon, string, as given by OpenWeather
+
   end
 end
