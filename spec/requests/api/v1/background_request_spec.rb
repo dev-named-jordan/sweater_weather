@@ -37,4 +37,14 @@ RSpec.describe 'Background API request', type: :request do
     expect(picture[:data][:attributes][:credit][:author]).to be_a(String)
     expect(picture[:id]).to eq(nil)
   end
+  describe 'sad path' do
+    it 'Render error with blank search', :vcr do
+      get "/api/v1/backgrounds?location="
+
+      picture = JSON.parse(response.body, symbolize_names:true)
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+    end
+  end
 end
