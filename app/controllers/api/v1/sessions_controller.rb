@@ -1,7 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email].downcase)
-
     if user && user.authenticate(params[:password])
       serial = UserSerializer.new(user)
       render json: serial, status: 200
