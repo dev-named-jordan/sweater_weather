@@ -1,12 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe 'User request', type: :request do
-  it 'Can create new user', :vcr do
+  it 'Can create new user' do
+    User.destroy_all
 
-    post "/api/v1/users"
-require "pry"; binding.pry
-    picture = JSON.parse(response.body, symbolize_names:true)
+    params = {
+      "email": "email@example.com",
+      "password": "1234",
+      "password_confirmation": "1234"
+    }
+
+    headers = { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
+
+    post api_v1_users_path, headers: headers, params: JSON.generate(params)
+
+    expected = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to be_successful
+    expect(response.status).to eq(201)
+    expect(expected).to be_a(Hash)
+    expect(expected[:data]).to be_a(Hash)
+    expect(expected[:data].count).to eq(3)
+    expect(expected[:data][:id]).to be_a(String)
+    expect(expected[:data][:type]).to be_a(String)
+    expect(expected[:data][:attributes]).to be_a(Hash)
+    expect(expected[:data][:attributes].count).to eq(2)
+    expect(expected[:data][:attributes][:email]).to be_a(String)
+    expect(expected[:data][:attributes][:api_key]).to be_a(String)
   end
 end

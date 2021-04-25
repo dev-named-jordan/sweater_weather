@@ -6,7 +6,5 @@ describe User, type: :model do
     it {should validate_uniqueness_of(:email)}
     it {should validate_presence_of(:password)}
     it {should validate_presence_of(:api_key)}
-
-    has_secure_password
   end
 end
