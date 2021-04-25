@@ -4,7 +4,7 @@ RSpec.describe 'Background API request', type: :request do
   it 'Can return an image related to the location specified upon request', :vcr do
 
     get "/api/v1/backgrounds?location=denver,co"
-require "pry"; binding.pry
+# require "pry"; binding.pry
     # picture = JSON.parse(response.body, symbolize_names:true)
 
     expect(response).to be_successful
