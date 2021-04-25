@@ -8,6 +8,7 @@ RSpec.describe 'Forecast API request', type: :request do
     forecast = JSON.parse(response.body, symbolize_names:true)
     expect(response).to be_successful
     expect(response.status).to eq(200)
+    expect(forecast[:data][:attributes].keys).to match_array [:current_weather, :daily_weather, :hourly_weather]
     expect(forecast[:data]).to be_a(Hash)
     expect(forecast[:data]).to have_key(:id)
     expect(forecast[:data]).to have_key(:type)
