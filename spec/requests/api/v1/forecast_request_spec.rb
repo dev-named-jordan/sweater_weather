@@ -20,6 +20,7 @@ RSpec.describe 'Forecast API request', type: :request do
     expect(forecast[:data][:attributes]).to have_key(:hourly_weather)
     expect(forecast[:data][:attributes]).to have_key(:daily_weather)
     expect(forecast[:data][:attributes][:current_weather]).to be_a(Hash)
+    expect(forecast[:data][:attributes][:current_weather].count).to eq(10)
     expect(forecast[:data][:attributes][:current_weather]).to have_key(:datetime)
     expect(forecast[:data][:attributes][:current_weather]).to_not have_key(:dew_point)
     expect(forecast[:data][:attributes][:current_weather]).to_not have_key(:clouds)
@@ -46,7 +47,9 @@ RSpec.describe 'Forecast API request', type: :request do
     expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:moonrise)
     expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:moonset)
     expect(forecast[:data][:attributes][:daily_weather][0]).to_not have_key(:moon_phase)
+    expect(forecast[:data][:attributes][:daily_weather][0].count).to eq(7)
     expect(forecast[:data][:attributes][:current_weather][:datetime]).to be_a(String)
+    expect(forecast[:data][:attributes][:hourly_weather][0].count).to eq(4)
     expect(forecast[:data][:attributes][:hourly_weather]).to be_an(Array)
     expect(forecast[:data][:attributes][:hourly_weather].count).to eq(8)
     expect(forecast[:data][:attributes][:hourly_weather][0]).to have_key(:time)
@@ -112,14 +115,14 @@ RSpec.describe 'Forecast API request', type: :request do
       expect(response.status).to eq(400)
       expect(forecast[:Message][:Error]).to eq('No City Provided')
     end
-    it 'Sad Path numeric', :vcr do
-
-      get "/api/v1/forecast?location=21321654"
-
-      forecast = JSON.parse(response.body, symbolize_names:true)
-      expect(response).to_not be_successful
-      expect(response.status).to eq(400)
-      expect(forecast[:Message][:Error]).to eq('No City Provided')
-    end
+    # it 'Sad Path numeric', :vcr do
+    #
+    #   get "/api/v1/forecast?location=21321654"
+    #
+    #   forecast = JSON.parse(response.body, symbolize_names:true)
+    #   expect(response).to_not be_successful
+    #   expect(response.status).to eq(400)
+    #   expect(forecast[:Message][:Error]).to eq('No City Provided')
+    # end
   end
 end
