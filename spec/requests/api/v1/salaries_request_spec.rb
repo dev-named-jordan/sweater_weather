@@ -3,7 +3,7 @@
   RSpec.describe 'Salaries API request', type: :request do
     it 'Can search for a city by name' do
 
-      get "/api/v1/salaries?destination=san+jose"
+      get "/api/v1/salaries?destination=san+jose,ca"
 
       destination = JSON.parse(response.body, symbolize_names:true)
 
