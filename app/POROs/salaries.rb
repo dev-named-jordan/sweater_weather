@@ -12,7 +12,7 @@ attr_reader :forecast, :destination, :salaries
     all_salaries = salaries_response.map do |salary|
       Salary.new(salary)
     end
-    r = all_salaries.select do |job|
+    all_salaries.select do |job|
       job.title == "Data Analyst" ||
       job.title == "Data Scientist" ||
       job.title == "Mobile Developer" ||
