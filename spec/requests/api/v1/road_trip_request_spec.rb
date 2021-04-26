@@ -5,7 +5,7 @@ RSpec.describe 'Forecast API request', type: :request do
     User.destroy_all
 
     user = User.create!(email: "email_1@example.com", password: "1234", password_confirmation: "1234", api_key: SecureRandom.hex)
-    
+
     post  "/api/v1/road_trip"
 
     body = {
@@ -20,7 +20,7 @@ RSpec.describe 'Forecast API request', type: :request do
 
     expected = JSON.parse(response.body, symbolize_names: true)
 
-require "pry"; binding.pry
+# require "pry"; binding.pry
     expect(response).to be_successful
     expect(response.status).to eq(200)
     expect(expected).to be_a(Hash)
