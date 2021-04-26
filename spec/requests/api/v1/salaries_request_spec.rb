@@ -1,9 +1,6 @@
   require 'rails_helper'
 
   RSpec.describe 'Teleport API request', type: :request do
-    before :each do
-      c.allow_http_connections_when_no_cassette = true
-    end
     it 'Can search for a city by name' do
 
       get "/api/v1/salaries?destination=denver,co"
