@@ -1,5 +1,5 @@
 class SalariesSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :destination_forecast, :destination
+  attributes :forecast, :destination, :salaries
   set_id { 'null' }
 end
