@@ -1,6 +1,6 @@
   require 'rails_helper'
 
-  RSpec.describe 'Teleport API request', type: :request do
+  RSpec.describe 'Salaries API request', type: :request do
     it 'Can search for a city by name' do
 
       get "/api/v1/salaries?destination=denver,co"
