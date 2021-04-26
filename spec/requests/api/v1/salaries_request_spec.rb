@@ -6,7 +6,7 @@
       get "/api/v1/salaries?destination=san+jose,ca"
 
       destination = JSON.parse(response.body, symbolize_names:true)
-
+require "pry"; binding.pry
       expect(response).to be_successful
       expect(response.status).to eq(200)
       expect(destination).to be_a(Hash)
