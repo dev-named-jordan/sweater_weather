@@ -68,7 +68,7 @@ RSpec.describe 'User request', type: :request do
       post api_v1_users_path, headers: headers, params: JSON.generate(params)
 
       expected = JSON.parse(response.body, symbolize_names: true)
-require "pry"; binding.pry
+
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
     end
