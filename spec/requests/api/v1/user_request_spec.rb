@@ -54,6 +54,24 @@ RSpec.describe 'User request', type: :request do
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
     end
+    it 'gives error message for no password confirmation' do
+      User.destroy_all
+
+      params = {
+        "email": "email_2@example.com",
+        "password": "1234",
+        "password_confirmation": ""
+      }
+
+      headers = { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
+
+      post api_v1_users_path, headers: headers, params: JSON.generate(params)
+
+      expected = JSON.parse(response.body, symbolize_names: true)
+require "pry"; binding.pry
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+    end
     it 'gives error message for missing field' do
       User.destroy_all
 

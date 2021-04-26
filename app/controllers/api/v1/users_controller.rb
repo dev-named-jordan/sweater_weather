@@ -5,6 +5,7 @@ class Api::V1::UsersController < ApplicationController
     if user.save
       render json: UserSerializer.new(user), status: 201
     else
+      # require "pry"; binding.pry
       render json: {'Message': {'Error': "#{user.errors.full_messages}" }}, status: :bad_request
     end
   end
