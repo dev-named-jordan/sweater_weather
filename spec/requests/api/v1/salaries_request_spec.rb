@@ -6,7 +6,7 @@
       get "/api/v1/salaries?destination=denver,co"
 
       destination = JSON.parse(response.body, symbolize_names:true)
-require "pry"; binding.pry
+
       expect(response).to be_successful
       expect(response.status).to eq(200)
       expect(destination).to be_a(Hash)
@@ -21,6 +21,8 @@ require "pry"; binding.pry
       expect(destination[:data][:attributes][:forecast][:summary]).to be_a(String)
       expect(destination[:data][:attributes][:forecast][:temperature]).to be_a(Float)
       expect(destination[:data][:attributes][:destination]).to be_a(String)
+      expect(destination[:data][:attributes][:destination]).to eq("Denver, Colorado, United States")
+      expect(destination[:data][:attributes][:salaries].count).to eq(7)
     end
     it 'sad path, black search field' do
 
