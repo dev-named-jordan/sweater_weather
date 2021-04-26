@@ -4,17 +4,16 @@ RSpec.describe 'Sessions request', type: :request do
   it 'Can create new session for user' do
     User.destroy_all
 
-    params = {
+    user_data = {
       "email": "email_1@example.com",
-      "password": "1234",
-      "password_confirmation": "1234"
+      "password": "1234"
     }
 
     headers = { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
 
     user = User.create!(email: "email_1@example.com", password: "1234", password_confirmation: "1234", api_key: SecureRandom.hex)
 
-    post api_v1_sessions_path, headers: headers, params: JSON.generate(params)
+    post api_v1_sessions_path, headers: headers, params: JSON.generate(user_data)
 
     expected = JSON.parse(response.body, symbolize_names: true)
 
@@ -56,7 +55,7 @@ RSpec.describe 'Sessions request', type: :request do
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
     end
-    it 'gives error message for missing field' do
+    it 'Gives error message for incorrect password field' do
       User.destroy_all
 
       params = {
