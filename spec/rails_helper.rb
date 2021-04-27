@@ -78,13 +78,15 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.ignore_localhost = true
   config.configure_rspec_metadata!
-  # config.filter_sensitive_data('DONT_EXPOSE_API') { ENV['key'] }
+  config.filter_sensitive_data( 'ENV[geo_key]' ) { ENV['geo_key'] }
+  config.filter_sensitive_data( 'ENV[appid]' ) { ENV['appid'] }
+  config.filter_sensitive_data( 'ENV[client_id]' ) { ENV['client_id'] }
+  config.filter_sensitive_data( 'ENV[token]' ) { ENV['token'] }
 end
 
-
-# VCR.configure do |config|
-#   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
-#   config.hook_into :webmock
-#   config.filter_sensitive_data('DONT_LOOK') { Figaro.env.api_key }
-#   config.default_cassette_options = { re_record_interval: 7.days }
+# config.filter_sensitive_data("SECURE") do
+#   ENV['geo_key']
+#   ENV['appid']
+#   ENV['client_id']
+#   ENV['token']
 # end
