@@ -23,7 +23,6 @@ class RoadTripFacade
 
   def self.trip_route(origin, destination)
     RoadTripService.get_route_service(origin, destination)[:route][:realTime]
-
   end
 
   def self.get_travel_time(origin, destination)
