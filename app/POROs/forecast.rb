@@ -1,5 +1,5 @@
 class Forecast
-  require 'date'
+
   attr_reader :current_weather, :hourly_weather, :daily_weather, :type, :id
 
   def initialize(weather_data)
