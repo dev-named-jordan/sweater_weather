@@ -10,8 +10,6 @@ class Api::V1::RoadTripController < ApplicationController
     if user && origin && destination
       serial = RoadTripSerializer.new(road_trip)
       render json: serial, status: 200
-    elsif serial.nil?
-      render json: {'Message': {'Error': "Impossibe Route" }}, status: :bad_request
     else
       render json: {'Message': {'Error': "Something is wrong here" }}, status: :bad_request
     end
