@@ -8,7 +8,7 @@ class RoadTrip
     @travel_time = time
     # @weather_at_eta = a
 
-    require "pry"; binding.pry
+    # require "pry"; binding.pry
 
     # @id = nil
     # @current_weather = CurrentWeather.new(weather_data[:current], weather_data[:timezone_offset])
