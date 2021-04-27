@@ -12,6 +12,6 @@ class GeocodeService
       f.params['key'] = ENV['geo_key']
       f.params['location'] = location
     end
-    parse(response)[:results][0][:locations][0][:latLng]
+    parse(response)
   end
 end

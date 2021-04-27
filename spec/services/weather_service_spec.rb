@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe 'Forecast API service', type: :request do
+RSpec.describe 'Weather API service', type: :request do
   it 'Can accept coordinates and get forecast from weather service', :vcr do
-    coordinates = GeocodeService.get_location('denver,co')
+    coordinates = GeocodeService.get_location('denver,co')[:results][0][:locations][0][:latLng]
     response = WeatherService.get_weather(coordinates[:lng], coordinates[:lat])
 
     expect(response).to be_a(Hash)
