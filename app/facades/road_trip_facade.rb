@@ -27,7 +27,6 @@ class RoadTripFacade
   end
 
   def self.get_travel_time(origin, destination)
-    # require "pry"; binding.pry
     response = RoadTripFacade.trip_route(origin, destination)
 
     day = 86400
