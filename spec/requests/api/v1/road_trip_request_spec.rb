@@ -106,4 +106,25 @@ RSpec.describe 'Road Trip Request API', type: :request do
     expect(response.status).to eq(401)
     expect(expected).to be_a(Hash)
   end
+  it 'Road Trip cannot be created with incorrect API key', :vcr do
+    User.destroy_all
+
+    user = User.create!(email: "email_1@example.com", password: "1234", password_confirmation: "1234", api_key: "pizza_time")
+
+    body = {
+      "origin": "Denver,CO",
+      "destination": "Pueblo,CO",
+      "api_key": "hot_dogs"
+    }
+
+    headers = { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
+
+    post "/api/v1/road_trip", headers: headers, params: JSON.generate(body)
+
+    expected = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(401)
+    expect(expected).to be_a(Hash)
+  end
 end
