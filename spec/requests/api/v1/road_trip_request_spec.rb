@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Forecast API request', type: :request do
-  it 'Using those values it can find the current, hourly and daily weather in a given city', :vcr do
+RSpec.describe 'Road Trip Request API', type: :request do
+  it 'Road Trip can be created for a user', :vcr do
     User.destroy_all
 
     user = User.create!(email: "email_1@example.com", password: "1234", password_confirmation: "1234", api_key: SecureRandom.hex)
@@ -16,8 +16,8 @@ RSpec.describe 'Forecast API request', type: :request do
 
     post "/api/v1/road_trip", headers: headers, params: JSON.generate(body)
 
-    require "pry"; binding.pry
     expected = JSON.parse(response.body, symbolize_names: true)
+    require "pry"; binding.pry
 
     expect(response).to be_successful
     expect(response.status).to eq(200)
