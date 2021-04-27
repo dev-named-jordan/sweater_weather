@@ -1,6 +1,6 @@
 class HourlyWeather
 
-  attr_reader :time, :temperature, :conditions, :icon
+  attr_reader :time, :temp, :conditions, :icon
 
   def initialize(hourly_data, timezone_offset)
     @time = Time.at(hourly_data[:dt]).getlocal(timezone_offset).strftime('%H%M')
