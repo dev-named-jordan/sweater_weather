@@ -10,7 +10,7 @@ class GeocodeService
   def self.get_location(location)
     response = conn.get('/geocoding/v1/address') do |f|
       f.params['key'] = ENV['geo_key']
-      f.params['location'] = "denver,co"
+      f.params['location'] = location
     end
     parse(response)[:results][0][:locations][0][:latLng]
   end

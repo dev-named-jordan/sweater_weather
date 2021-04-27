@@ -1,8 +1,10 @@
 class Api::V1::RoadTripController < ApplicationController
   def create
-    u = User.find_by(api_key: params[:road_trip][:origin] && params[:road_trip][:destination] &&  params[:road_trip][:api_key])
-    require "pry"; binding.pry
-    # user = User.find_by(email: params[:email].downcase)
+    @user_1 = User.find_by(api_key: params[:road_trip][:origin] && params[:road_trip][:destination] &&  params[:road_trip][:api_key])
+    # require "pry"; binding.pry
+
+    RoadTripService.get_route(from, to)
+    # RoadTripFacade.create_roadtrip
     # if user && user.authenticate(params[:password])
     #   serial = UserSerializer.new(user)
     #   render json: serial, status: 200
