@@ -1,13 +1,14 @@
 class RoadTripFacade
   def self.get_route(origin, destination)
-    time = RoadTripFacade.get_travel_time(origin, destination)
     seconds = RoadTripFacade.trip_route(origin, destination)
+    return nil if seconds.nil?
+    time = RoadTripFacade.get_travel_time(origin, destination)
     weather = RoadTripFacade.destination_weather_eta(seconds, destination)
     RoadTrip.new(origin, destination, time, weather)
   end
 
   def self.destination_weather_eta(seconds, destination)
-    arrival_time = (Time.now + seconds).strftime('%H %M %d')
+        arrival_time = (Time.now + seconds).strftime('%H %M %d')
     hourly = ForecastFacade.hourly_unlimited(destination)
     if seconds < 84600
       hours = hourly[0..23].find do |hour|
@@ -22,9 +23,11 @@ class RoadTripFacade
 
   def self.trip_route(origin, destination)
     RoadTripService.get_route_service(origin, destination)[:route][:realTime]
+
   end
 
   def self.get_travel_time(origin, destination)
+    # require "pry"; binding.pry
     response = RoadTripFacade.trip_route(origin, destination)
 
     day = 86400
