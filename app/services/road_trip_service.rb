@@ -7,7 +7,7 @@ class RoadTripService
     JSON.parse(response.body, symbolize_names: true)
   end
 
-  def self.get_route(origin, destination)
+  def self.get_route_service(origin, destination)
     response = conn.get('/directions/v2/route') do |f|
       f.params['key'] = ENV['geo_key']
       f.params['from'] = origin

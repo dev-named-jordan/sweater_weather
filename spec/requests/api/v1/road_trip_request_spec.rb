@@ -17,7 +17,7 @@ RSpec.describe 'Road Trip Request API', type: :request do
     post "/api/v1/road_trip", headers: headers, params: JSON.generate(body)
 
     expected = JSON.parse(response.body, symbolize_names: true)
-    require "pry"; binding.pry
+    # require "pry"; binding.pry
 
     expect(response).to be_successful
     expect(response.status).to eq(200)
