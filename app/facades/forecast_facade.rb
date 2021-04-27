@@ -1,8 +1,16 @@
 class ForecastFacade
   def self.get_forecast(location)
     coordinate_data = GeocodeService.get_location(location)
-    longitude = coordinate_data[:lng]
-    latitude = coordinate_data[:lat]
+    # if longitude.nil?
+      longitude = coordinate_data[:lng]
+    # else
+    #   return nil
+    # end
+    # if latitude.nil?
+      latitude = coordinate_data[:lat]
+    # else
+    #   return nil
+    # end
     weather_data = WeatherService.get_weather(longitude, latitude)
     Forecast.new(weather_data)
   end

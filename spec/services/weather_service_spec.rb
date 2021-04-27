@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Forecast API service', type: :request do
   it 'Can accept coordinates and get forecast from weather service', :vcr do
-
     coordinates = GeocodeService.get_location('denver,co')
     response = WeatherService.get_weather(coordinates[:lng], coordinates[:lat])
 
@@ -21,5 +20,10 @@ RSpec.describe 'Forecast API service', type: :request do
     expect(response[:daily].count).to eq(8)
     expect(response[:daily][0]).to be_an(Hash)
     expect(response[:daily][0].count).to eq(19)
+  end
+  it 'sad path missing coords', :vcr do
+    response = WeatherService.get_weather("", "")
+
+    expect(response[:message]).to eq("Nothing to geocode")
   end
 end
