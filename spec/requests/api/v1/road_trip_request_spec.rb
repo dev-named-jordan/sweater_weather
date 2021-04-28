@@ -7,8 +7,29 @@ RSpec.describe 'Road Trip Request API', type: :request do
     user = User.create!(email: "email_1@example.com", password: "1234", password_confirmation: "1234", api_key: SecureRandom.hex)
 
     body = {
-      "origin": "Denver,CO",
-      "destination": "Pueblo,CO",
+      "origin": "denver,co",
+      "destination": "pueblo,co",
+      "api_key": "#{user.api_key}"
+    }
+
+    headers = { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
+
+    post "/api/v1/road_trip", headers: headers, params: JSON.generate(body)
+
+    expected = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to be_successful
+    expect(response.status).to eq(200)
+    expect(expected).to be_a(Hash)
+  end
+  it 'Road Trip can be created for a user with all CAPS', :vcr do
+    User.destroy_all
+
+    user = User.create!(email: "email_1@example.com", password: "1234", password_confirmation: "1234", api_key: SecureRandom.hex)
+
+    body = {
+      "origin": "DENVER,CO",
+      "destination": "PUEBLO,CO",
       "api_key": "#{user.api_key}"
     }
 
@@ -43,6 +64,27 @@ RSpec.describe 'Road Trip Request API', type: :request do
     expect(response.status).to eq(200)
     expect(expected).to be_a(Hash)
   end
+  it 'Road Trip can be created for a user for short trip', :vcr do
+    User.destroy_all
+
+    user = User.create!(email: "email_1@example.com", password: "1234", password_confirmation: "1234", api_key: SecureRandom.hex)
+
+    body = {
+      "origin": "sunnyvale,ca",
+      "destination": "mountain view, ca",
+      "api_key": "#{user.api_key}"
+    }
+
+    headers = { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
+
+    post "/api/v1/road_trip", headers: headers, params: JSON.generate(body)
+
+    expected = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to be_successful
+    expect(response.status).to eq(200)
+    expect(expected).to be_a(Hash)
+  end
   it 'Road Trip cannot be created for an impossible trip', :vcr do
     User.destroy_all
 
@@ -64,13 +106,55 @@ RSpec.describe 'Road Trip Request API', type: :request do
     expect(response.status).to eq(200)
     expect(expected).to be_a(Hash)
   end
-  it 'Road Trip cannot be created from incomplete data', :vcr do
+  it 'Road Trip cannot be created from incomplete data for both fields', :vcr do
     User.destroy_all
 
     user = User.create!(email: "email_1@example.com", password: "1234", password_confirmation: "1234", api_key: SecureRandom.hex)
 
     body = {
       "origin": "",
+      "destination": "",
+      "api_key": "#{user.api_key}"
+    }
+
+    headers = { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
+
+    post "/api/v1/road_trip", headers: headers, params: JSON.generate(body)
+
+    expected = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+    expect(expected).to be_a(Hash)
+  end
+  it 'Road Trip cannot be created from incomplete data for origin field', :vcr do
+    User.destroy_all
+
+    user = User.create!(email: "email_1@example.com", password: "1234", password_confirmation: "1234", api_key: SecureRandom.hex)
+
+    body = {
+      "origin": "",
+      "destination": "pueblo,co",
+      "api_key": "#{user.api_key}"
+    }
+
+    headers = { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
+
+    post "/api/v1/road_trip", headers: headers, params: JSON.generate(body)
+
+    expected = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+    expect(expected).to be_a(Hash)
+  end
+  it 'Road Trip cannot be created from incomplete data for destination field', :vcr do
+    User.destroy_all
+
+    user = User.create!(email: "email_1@example.com", password: "1234", password_confirmation: "1234", api_key: SecureRandom.hex)
+
+    body = {
+      "origin": "denver,co",
       "destination": "",
       "api_key": "#{user.api_key}"
     }

@@ -7,7 +7,7 @@ class WeatherService
     JSON.parse(response.body, symbolize_names: true)
   end
 
-  def self.get_weather(longitude, latitude)
+  def self.get_weather(longitude, latitude)      
     response = conn.get("/data/2.5/onecall") do |f|
       f.params['lat'] = latitude
       f.params['lon'] = longitude

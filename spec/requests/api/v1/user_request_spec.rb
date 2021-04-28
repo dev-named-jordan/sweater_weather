@@ -72,7 +72,7 @@ RSpec.describe 'User request', type: :request do
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
     end
-    it 'gives error message for missing field' do
+    it 'gives error message for unmatched field' do
       User.destroy_all
 
       params = {
