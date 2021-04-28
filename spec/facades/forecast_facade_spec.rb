@@ -5,7 +5,7 @@ RSpec.describe 'Background API Facade', type: :request do
 
     location = "denver,co"
     response = ForecastFacade.get_forecast(location)
-# require "pry"; binding.pry
+
     expect(response.current_weather).to be_a(CurrentWeather)
     expect(response.current_weather.conditions).to be_a(String)
     expect(response.current_weather.datetime).to be_a(String)
