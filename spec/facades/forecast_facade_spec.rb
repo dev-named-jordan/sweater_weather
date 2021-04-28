@@ -45,4 +45,16 @@ RSpec.describe 'Background API Facade', type: :request do
     expect(response.daily_weather[0].sunrise).to be_a(String)
     expect(response.daily_weather[0].sunset).to be_a(String)
   end
+  it 'Can get hourly_unlimited', :vcr do
+
+    destination = "pueblo,co"
+    response = ForecastFacade.hourly_unlimited(destination)
+
+    expect(response).to be_an(Array)
+    expect(response.count).to eq(48)
+    expect(response.first.conditions).to be_a(String)
+    expect(response.first.icon).to be_a(String)
+    expect(response.first.time).to be_a(String)
+    expect(response.first.temp).to be_a(Numeric)
+  end
 end

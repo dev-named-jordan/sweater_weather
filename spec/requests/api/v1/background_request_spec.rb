@@ -46,13 +46,13 @@ RSpec.describe 'Background API request', type: :request do
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
     end
-    # it 'Render error with numbers search', :vcr do
+    it 'Render error with numbers search', :vcr do
     #   get "/api/v1/backgrounds?location=134654"
     #
+    #   require "pry"; binding.pry
     #   picture = JSON.parse(response.body, symbolize_names:true)
-    #
     #   expect(response).to_not be_successful
     #   expect(response.status).to eq(400)
-    # end
+    end
   end
 end
