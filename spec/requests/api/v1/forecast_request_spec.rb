@@ -6,7 +6,7 @@ RSpec.describe 'Forecast API request', type: :request do
     get "/api/v1/forecast?location=denver,co"
 
     forecast = JSON.parse(response.body, symbolize_names:true)
-    
+
     expect(response).to be_successful
     expect(response.status).to eq(200)
     expect(forecast[:data][:attributes].keys).to match_array [:current_weather, :daily_weather, :hourly_weather]
@@ -117,7 +117,7 @@ RSpec.describe 'Forecast API request', type: :request do
       expect(response.status).to eq(400)
       expect(forecast[:Message][:Error]).to eq('No City Provided')
     end
-    # it 'Sad Path numeric', :vcr do
+    it 'Sad Path all numbers in search', :vcr do
     #
     #   get "/api/v1/forecast?location=21321654"
     #
@@ -125,6 +125,6 @@ RSpec.describe 'Forecast API request', type: :request do
     #   expect(response).to_not be_successful
     #   expect(response.status).to eq(400)
     #   expect(forecast[:Message][:Error]).to eq('No City Provided')
-    # end
+    end
   end
 end
