@@ -22,4 +22,5 @@ deploy:
   on:
     repo: jordanfbeck0528/sweater_weather
     branch: main
+  skip_cleanup: "true"
   run: rails db:migrate
