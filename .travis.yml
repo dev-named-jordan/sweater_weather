@@ -2,6 +2,7 @@ language: ruby
 rbenv:
 - 2.5.3
 env:
+  global:
   - ENV['appid']
   - ENV['client_id']
   - ENV['geo_key']
