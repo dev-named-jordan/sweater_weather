@@ -44,4 +44,11 @@ RSpec.describe 'Road Trip API Facade', type: :request do
 
     expect(response).to be_a(String)
   end
+  it 'Can get real day hour and minute format for trip travel time for long trip', :vcr do
+
+    origin = "los angeles,ca"
+    destination = "new york city, ny"
+    response = RoadTripFacade.get_travel_time(origin, destination)
+    expect(response).to be_a(String)
+  end
 end
