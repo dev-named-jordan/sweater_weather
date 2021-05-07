@@ -15,7 +15,7 @@ RSpec.describe 'Weather API service', type: :request do
     expect(response[:hourly]).to be_an(Array)
     expect(response[:hourly].count).to eq(48)
     expect(response[:hourly][0]).to be_a(Hash)
-    expect(response[:hourly][0].count).to eq(15)
+    expect(response[:hourly][0].count).to eq(14)
     expect(response[:daily]).to be_an(Array)
     expect(response[:daily].count).to eq(8)
     expect(response[:daily][0]).to be_an(Hash)
