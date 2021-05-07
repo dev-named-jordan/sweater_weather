@@ -13,10 +13,10 @@ RSpec.describe 'Background API Facade', type: :request do
     expect(response.location).to be_a(String)
     expect(response.url).to be_a(String)
   end
-  it 'Cant get background with blank location', :vcr do
-  #
-  #   location = ""
-  #   response = BackgroundFacade.get_background(location)
-  #
-  end
+  # it 'Cant get background with blank location', :vcr do
+  # #
+  # #   location = ""
+  # #   response = BackgroundFacade.get_background(location)
+  # #
+  # end
 end
