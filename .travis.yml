@@ -17,5 +17,5 @@ deploy:
     secure: VzX+dJG6rQ41SrV++b7z4MF7X7MIQ/1V18eGx3h7utEMU4XQvkOwFIjQhdvjJQc6/HGVn/3lQ3nkfw8Ol9YFIg7X0W0tljYOw+RRnt0rTN0lT9OCRfse9XuXXBosaNNztUdwyHFHhfAGka2OKbU6CcYQp75mZV/dTtqu4EH5kUq1YkV3yRZSk6CjgRvmgTgohP/zvo1FTYD3E/pjnR+mL4ZxxkkDdtOeCN+79Tur7yQhW6+krwWlne6cCThYURYpvT3SK4EHEbNUhcrKbSSss0joF5anQ7EYlBBStjFUTHsUPK3/VsUMluviOh5HplJh8bB8AYld+BHlIk0fu2ba2IOirKfCl1UPzGsfWDf/+OfhA3QcHlr5YHbEH1/mzKQ/M4gbiwNZWF/n50p9R/N1DYFOkciM2CWmSYvf44Nj1qWFZAdEjXeNAjBibbIxwa6TkjAY3eG0jhyhdZFb16102nzIdoUgjws7oa1O8MYYyV6Uqp7e5ylKA3RLHIy5Qq7jJCotsy1qNXArl/9nJqbZ9yi+MnYJI8RKHM7RJ8etX2/uifYHK8xazoy52S6nefSY9RpkVRohXYDqBBYVN/Jjb7ZBCT1WJ48hwFbbfEIfz7/d+Gaax0QrKoec5inqEwUwiKQRA8eyGrOPdrnLEGErt49sPIFuIp95WFn+DPolOwI=
   app: secure-harbor-78053
   on:
-    repo: github/jordanfbeck0528/sweater_weather
+    repo: https://github.com/jordanfbeck0528/sweater_weather
   run: rails db:migrate
