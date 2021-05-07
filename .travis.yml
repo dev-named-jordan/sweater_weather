@@ -21,4 +21,5 @@ deploy:
   app: secure-harbor-78053
   on:
     repo: jordanfbeck0528/sweater_weather
+    branch: main
   run: rails db:migrate
