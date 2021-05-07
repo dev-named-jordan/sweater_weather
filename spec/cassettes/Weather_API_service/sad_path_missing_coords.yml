@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - openresty
       Date:
-      - Fri, 07 May 2021 17:39:01 GMT
+      - Fri, 07 May 2021 18:08:11 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -39,5 +39,5 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"cod":"400","message":"Nothing to geocode"}'
-  recorded_at: Fri, 07 May 2021 17:39:01 GMT
+  recorded_at: Fri, 07 May 2021 18:08:11 GMT
 recorded_with: VCR 6.0.0
