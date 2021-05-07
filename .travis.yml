@@ -1,0 +1,21 @@
+language: ruby
+rbenv:
+- 2.5.3
+addons:
+  postgresql: 9.6
+cache: bundler
+before_install:
+- gem install bundler:2.2.16
+- nvm install --lts
+
+script:
+- bundle exec rails db:{create,migrate} RAILS_ENV=test
+- bundle exec rspec
+deploy:
+  provider: heroku
+  api_key:
+    secure: f8f1c936ecaf18ebede4c38cf3ffd3d43c47973b3535023e34a4cfc4634ac80ab69ea3b4bba0868c38365ab54bc5407520247f715210767c3dee4957faec6bbe
+  app: secure-harbor-78053
+  on:
+    repo: github/jordanfbeck0528/sweater_weather
+  run: rails db:migrate
