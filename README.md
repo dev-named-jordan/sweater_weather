@@ -3,7 +3,7 @@
 
 ### About
 
-I was given 5 days to create and consume expose 5 endpoints, and consume 4 APIs. This is the Fianl Project for Turing School's Mod 3. 
+I was given 5 days to create and consume expose 5 endpoints, and consume 4 APIs. This is the Final Project for Turing School's Mod 3. 
 
 #### Built With
 * [Ruby on Rails](https://rubyonrails.org)
