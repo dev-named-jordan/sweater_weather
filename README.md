@@ -3,7 +3,7 @@
 
 ### About
 
-I was given 5 days to expose 5 endpoints, and consume 4 APIs. This is the Final Project for Turing School's Mod 3. 
+I was given 5 days to expose 5 endpoints, and consume 4 APIs. This is the Final Project for Turing School's Mod 3. Wireframes and guidelines for the project can be viewed here - https://backend.turing.edu/module3/projects/sweater_weather/requirements 
 
 #### Built With
 * [Ruby on Rails](https://rubyonrails.org)
