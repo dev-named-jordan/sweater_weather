@@ -1,6 +1,10 @@
 ### Created by:
 - [Jordan Beck](https://github.com/jordanfbeck0528) | [LinkedIn](https://www.linkedin.com/in/jordan-f-beck/)
 
+### About
+
+I was given 5 days to create and consume expose 5 endpoints, and consume 4 APIs. This is the Fianl Project for Turing School's Mod 3. 
+
 #### Built With
 * [Ruby on Rails](https://rubyonrails.org)
 * [HTML](https://html.com)
@@ -11,10 +15,6 @@ This project was tested with:
 * [VCR](https://github.com/vcr/vcr)
 * [Capybara](https://github.com/teamcapybara/capybara)
 * [Postman](https://www.postman.com/) Explore and test the API endpoints using Postman, and use Postman’s CLI to execute collections directly from the command-line.
-
-### About
-
-I was given 5 days to create and consume expose 5 endpoints, and consume 4 APIs. This is the Fianl Project for Turing School's Mod 3. 
 
 
 #### Prerequisites
